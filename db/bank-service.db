@@ -1,0 +1,27 @@
+CREATE TABLE check(
+    id    INT PRIMARY KEY AUTOINCREMENT UNIQUE,
+    name TEXT,
+    userId INT
+)
+
+CREATE TABLE users(
+    id    INT PRIMARY KEY AUTOINCREMENT UNIQUE,
+    fio  TEXT,
+    login TEXT,
+    password TEXT
+)
+
+CREATE TABLE currency(
+    id    INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+    name TEXT,
+    price FLOAT,
+)
+
+CREATE TABLE transactions(
+    id    INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+    date DATETIME,
+    typeCurrency TEXT,
+    count FLOAT,
+    currencyId INT,
+    typeTransaction INT
+)
