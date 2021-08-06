@@ -1,4 +1,4 @@
-CREATE TABLE check(
+CREATE TABLE account(
     id    INT PRIMARY KEY AUTOINCREMENT UNIQUE,
     name TEXT,
     userId INT

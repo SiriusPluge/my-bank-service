@@ -1,18 +1,18 @@
 package mybank
 
-type check struct {
+type Account struct {
 	id int `json:"id"`
 	name string `json:"name"`
 	userId int `json:"user_id"`
 }
 
-type currency struct {
+type Currency struct {
 	id int `json:"id"`
 	name string `json:"name"`
 	price float32 `json:"price"`
 }
 
-type transactions struct {
+type Transactions struct {
 	id int `json:"id"`
 	typeCurrency string `json:"type_currency"`
 	count float32 `json:"count"`

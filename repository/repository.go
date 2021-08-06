@@ -1,6 +1,4 @@
-package service
-
-import "github.com/SiriusPluge/my-bank-service/repository"
+package repository
 
 type Authorization interface {
 
@@ -21,11 +19,11 @@ type AccountInterface interface {
 	GetBalance(cur string) (float64, error)
 }
 
-type Service struct {
+type Repository struct {
 	Authorization
 	AccountInterface
 }
 
-func NewService(repos *repository.Repository) *Service {
-	return &Service{}
+func NewRepository() *Repository {
+	return &Repository{}
 }

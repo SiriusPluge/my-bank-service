@@ -1,8 +1,16 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/SiriusPluge/my-bank-service/service"
+	"github.com/gin-gonic/gin"
+)
 
 type Handler struct {
+	services *service.Service
+}
+
+func NewHandler(services *service.Service) *Handler {
+	return &Handler{services: services}
 }
 
 func (h *Handler) InitRoutes() *gin.Engine {
@@ -18,7 +26,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	{
 		checks := api.Group("/checks")
 		{
-			checks.PUT("/", h.AddFunds)                                     //пополнение счета
+			checks.PUT("/AddFunds", h.AddFunds)                             //пополнение счета
 			checks.PUT("/sumProfit", h.SumProfit)                           //расчет процента и внесение его на счет
 			checks.PUT("/withdraw", h.Withdraw)                             //списания со счета
 			checks.GET("/getCurrency", h.GetCurrency)                       //вывод валюты счета
