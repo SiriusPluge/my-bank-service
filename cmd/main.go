@@ -6,6 +6,7 @@ import (
 	"github.com/SiriusPluge/my-bank-service/repository"
 	"github.com/SiriusPluge/my-bank-service/service"
 	"github.com/spf13/viper"
+	_ "github.com/mattn/go-sqlite3"
 	"log"
 	"net/http"
 	"time"
@@ -36,7 +37,12 @@ func main() {
 		log.Fatalf("error initializing configs: %s", err.Error())
 	}
 
-	repos := repository.NewRepository()
+	db, err := repository.NewDB()
+	if err != nil {
+		log.Fatalf("failed to initialize db: %s", err.Error())
+	}
+
+	repos := repository.NewRepository(db)
 	services := service.NewService(repos)
 	handlers := handler.NewHandler(services)
 
@@ -44,6 +50,8 @@ func main() {
 	if err := srv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
 		log.Fatalf("error occured while running http server: %s", err.Error())
 	}
+
+
 }
 
 func initConfig() error {
