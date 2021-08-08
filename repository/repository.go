@@ -1,9 +1,11 @@
 package repository
 
-import "database/sql"
+import (
+	mybank "github.com/SiriusPluge/my-bank-service"
+)
 
 type Authorization interface {
-
+	CreateUser(user mybank.User) (int, error)
 }
 
 type AccountInterface interface {
@@ -26,6 +28,8 @@ type Repository struct {
 	AccountInterface
 }
 
-func NewRepository(db *sql.DB) *Repository {
-	return &Repository{}
+func NewRepository(db *DB) *Repository {
+	return &Repository{
+		Authorization: NewAuthSQLite(db),
+	}
 }

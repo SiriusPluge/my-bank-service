@@ -5,9 +5,9 @@ import (
 	handler "github.com/SiriusPluge/my-bank-service/pkg/handler"
 	"github.com/SiriusPluge/my-bank-service/repository"
 	"github.com/SiriusPluge/my-bank-service/service"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	_ "github.com/mattn/go-sqlite3"
-	"log"
 	"net/http"
 	"time"
 )
@@ -33,13 +33,15 @@ func (s *Server) Shutdown(ctx context.Context) error {
 }
 
 func main() {
+	logrus.SetFormatter(new(logrus.JSONFormatter))
+
 	if err := initConfig(); err != nil {
-		log.Fatalf("error initializing configs: %s", err.Error())
+		logrus.Fatalf("error initializing configs: %s", err.Error())
 	}
 
 	db, err := repository.NewDB()
 	if err != nil {
-		log.Fatalf("failed to initialize db: %s", err.Error())
+		logrus.Fatalf("failed to initialize db: %s", err.Error())
 	}
 
 	repos := repository.NewRepository(db)
@@ -48,7 +50,7 @@ func main() {
 
 	srv := new(Server)
 	if err := srv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
-		log.Fatalf("error occured while running http server: %s", err.Error())
+		logrus.Fatalf("error occured while running http server: %s", err.Error())
 	}
 
 

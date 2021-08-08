@@ -1,9 +1,12 @@
 package service
 
-import "github.com/SiriusPluge/my-bank-service/repository"
+import (
+	mybank "github.com/SiriusPluge/my-bank-service"
+	"github.com/SiriusPluge/my-bank-service/repository"
+)
 
 type Authorization interface {
-
+	CreateUser(user mybank.User) (int, error)
 }
 
 type AccountInterface interface {
@@ -27,5 +30,7 @@ type Service struct {
 }
 
 func NewService(repos *repository.Repository) *Service {
-	return &Service{}
+	return &Service{
+		Authorization: NewAuthService(repos.Authorization),
+	}
 }
