@@ -7,6 +7,7 @@ import (
 
 type Authorization interface {
 	CreateUser(user mybank.User) (int, error)
+	GenerateToken(login, password string) (string, error)
 }
 
 type AccountInterface interface {

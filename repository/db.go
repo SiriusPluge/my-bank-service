@@ -38,23 +38,23 @@ const (
 		)
 	`
 	schemaSQL = `
-		CREATE TABLE IF NOT EXISTS account (
-			id    INT PRIMARY KEY,
-			name TEXT,
-			userId INT,
-		);
-
 		CREATE TABLE IF NOT EXISTS users (
-			id    INT PRIMARY KEY,
+			id    INTEGER PRIMARY KEY,
 			fio  TEXT,
 			login TEXT,
-			password TEXT,
+			password_hash TEXT
+		);
+		
+		CREATE TABLE IF NOT EXISTS account (
+			id    INTEGER PRIMARY KEY,
+			name TEXT,
+			userId INT
 		);
 
 		CREATE TABLE IF NOT EXISTS currency (
 			id    INTEGER PRIMARY KEY,
 			name TEXT,
-			price FLOAT,
+			price FLOAT
 		);
 
 		CREATE TABLE IF NOT EXISTS transactions (
@@ -63,8 +63,8 @@ const (
 			typeCurrency TEXT,
 			count FLOAT,
 			currencyId INT,
-			typeTransaction INT,
-		)
+			typeTransaction INT
+		);
 	`
 )
 

@@ -6,6 +6,7 @@ import (
 
 type Authorization interface {
 	CreateUser(user mybank.User) (int, error)
+	GetUser(login, password string) (mybank.User, error)
 }
 
 type AccountInterface interface {
