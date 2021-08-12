@@ -1,5 +1,9 @@
 package mybank
 
+import "errors"
+
+var ErrNoRecord = errors.New("models: подходящей записи не найдено")
+
 type User struct {
 	Id       int    `json:"-" db:"id"`
 	Fio      string `json:"fio" binding:"required"`

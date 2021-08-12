@@ -27,8 +27,8 @@ func (r *AuthSQLite) CreateUser(user mybank.User) (int, error) {
 
 func (r *AuthSQLite) GetUser(login, password string) (mybank.User, error) {
 	var user mybank.User
-	query := fmt.Sprintf("SELECT id FROM %s WHERE login=$1 AND password_hash=$2", usersTable)
-	err := r.db.sql.QueryRow(query).Scan(&user, query, login, password)
+	query := fmt.Sprintf("SELECT * FROM %s WHERE login=$1 AND password_hash=$2", usersTable)
+	err := r.db.sql.QueryRow(query, user.Id).Scan(&user.Login, &user.Password)
 
 	return user, err
 }
